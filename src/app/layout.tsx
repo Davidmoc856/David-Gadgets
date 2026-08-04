@@ -17,33 +17,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://davidgadgets.com.ng';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.davidgadgets.com'),
-  title: "David Gadgets | Premium Tech Marketplace",
-  description: "Secure gadget trading with escrow protection, verified sellers, and logistics tracking.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'David Gadgets | Buy Phones, Laptops & Accessories in Lagos',
+    template: '%s | David Gadgets',
+  },
+  description: 'Buy certified original phones, laptops, and accessories with escrow protection.',
   keywords: [
-    'tech marketplace',
-    'buy phone',
-    'sell phone',
+    'buy phones in Lagos',
+    'laptops in Lagos',
+    'phone accessories Nigeria',
+    'trusted tech marketplace',
     'escrow gadget marketplace',
-    'device trade',
-    'verified tech store',
+    'verified phone store',
   ],
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'David Gadgets | Premium Tech Marketplace',
-    description: 'Secure gadget trading with escrow protection, verified sellers, and logistics tracking.',
-    url: '/',
     siteName: 'David Gadgets',
+    title: 'David Gadgets | Buy Phones, Laptops & Accessories in Lagos',
+    description: 'Buy certified original phones, laptops, and accessories with escrow protection.',
+    url: siteUrl,
     locale: 'en_NG',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'David Gadgets | Premium Tech Marketplace',
-    description: 'Secure gadget trading with escrow protection, verified sellers, and logistics tracking.',
+    title: 'David Gadgets | Buy Phones, Laptops & Accessories in Lagos',
+    description: 'Buy certified original phones, laptops, and accessories with escrow protection.',
   },
 };
 

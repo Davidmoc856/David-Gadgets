@@ -3,10 +3,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { masterInventory, ProductItem } from '../data/products';
 
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'David Gadgets',
+  url: 'https://davidgadgets.com.ng',
+  description: 'Buy certified original phones, laptops, and accessories with escrow protection.',
+  inLanguage: 'en-NG',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://davidgadgets.com.ng/marketplace?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+};
+
 export default function Home() {
   const trendingDevices = masterInventory.filter((item) => item.trending);
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-8 text-white sm:px-6 sm:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       
       {/* ⚡ HERO BANNER SECTION */}
       <section className="relative overflow-hidden rounded-3xl border border-zinc-800/80 bg-linear-to-b from-zinc-900 to-zinc-950 px-5 py-10 shadow-2xl animate-fade-in sm:px-8 sm:py-16 md:px-16 md:py-20 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
