@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b; /* zinc-950 default background */
+  --foreground: #f4f4f5; /* zinc-100 default foreground */
+
+  /* Custom color shades used throughout the app (Tailwind v4 doesn't include these by default) */
+  --color-zinc-150: #e8e8ea;
+  --color-zinc-250: #c4c4ca;
+  --color-zinc-350: #a1a1aa;
+  --color-zinc-450: #7f7f88;
+  --color-zinc-455: #7a7a83;
+  --color-zinc-550: #63636b;
+  --color-zinc-650: #505058;
+  --color-zinc-750: #3b3b41;
+  --color-zinc-805: #2e2e33;
+  --color-zinc-850: #25252a;
+  --color-zinc-855: #212126;
+  --color-blue-505: #1e7fe0;
+  --color-blue-550: #1b78d0;
+  --color-red-650: #dc2626;
+  --color-rose-455: #e11d48;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-zinc-150: var(--color-zinc-150);
+  --color-zinc-250: var(--color-zinc-250);
+  --color-zinc-350: var(--color-zinc-350);
+  --color-zinc-450: var(--color-zinc-450);
+  --color-zinc-455: var(--color-zinc-455);
+  --color-zinc-550: var(--color-zinc-550);
+  --color-zinc-650: var(--color-zinc-650);
+  --color-zinc-750: var(--color-zinc-750);
+  --color-zinc-805: var(--color-zinc-805);
+  --color-zinc-850: var(--color-zinc-850);
+  --color-zinc-855: var(--color-zinc-855);
+  --color-blue-505: var(--color-blue-505);
+  --color-blue-550: var(--color-blue-550);
+  --color-red-650: var(--color-red-650);
+  --color-rose-455: var(--color-rose-455);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.35);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, 0.9);
+  outline-offset: 2px;
+}
+
+/* Custom animated background glow */
+.radial-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 60%);
+}
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: rgba(9, 9, 11, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Custom premium scrollbar styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #27272a; /* zinc-800 */
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46; /* zinc-700 */
+}
+
+/* Fluid, bouncy transitions for all buttons and interactive items */
+.interactive-bounce {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Micro-interaction scale down on click */
+.active-press:active {
+  transform: scale(0.96);
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 16px 3px rgba(59, 130, 246, 0.2);
+  }
+}
+
+.glow-hover:hover {
+  animation: pulse-glow 2s infinite;
+}
+
+/* 🌐 GLOBAL BORDER OVERRIDES FOR TRANSLUCENT PREMIUM UI */
+*, ::before, ::after {
+  border-color: rgba(255, 255, 255, 0.05); /* Transparent, colorless default border */
+}
+
+/* Override Tailwind border-zinc and border-gray colors specifically for border properties */
+.border-zinc-700, .border-gray-700 {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+.border-zinc-800, .border-gray-800 {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+.border-zinc-850, .border-zinc-855 {
+  border-color: rgba(255, 255, 255, 0.04) !important;
+}
+.border-zinc-900, .border-gray-900 {
+  border-color: rgba(255, 255, 255, 0.03) !important;
+}
+.border-zinc-950, .border-gray-955 {
+  border-color: rgba(255, 255, 255, 0.01) !important;
+}
