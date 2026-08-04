@@ -15,9 +15,11 @@ export default function Navbar() {
   const { user } = useApp();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const displayName = user?.name?.trim() || 'Customer';
   const welcomeText = user?.isConnected ? `Hi, ${displayName}` : 'Link Wallet';
+  const isSearchActive = searchQuery.trim().length > 0 || isSearchFocused;
 
   return (
     <>
@@ -30,13 +32,15 @@ export default function Navbar() {
         </Link>
 
         {/* Search Bar Container */}
-        <div className="flex-1 max-w-md mx-2 relative">
+        <div className={`relative mx-2 min-w-0 flex-1 transition-all duration-300 ${isSearchActive ? 'max-w-none' : 'max-w-md'}`}>
           <div className="relative w-full">
             <input
               type="text"
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setIsSearchFocused(true)}
+              onBlur={() => setIsSearchFocused(false)}
               className="w-full bg-zinc-900 text-xs sm:text-sm text-white pl-3 pr-8 py-1.5 sm:pl-4 sm:pr-10 sm:py-2.5 rounded-lg sm:rounded-xl border border-zinc-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/25 transition-all duration-300 hover:border-zinc-700"
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-2.5 sm:pr-3 pointer-events-none text-zinc-500">

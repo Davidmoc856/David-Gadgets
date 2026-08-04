@@ -42,57 +42,67 @@ export default function TransactionsPage() {
 
     try {
       const supabase = createClient();
-      const { data, error } = await supabase
+      const missingTransactionsTable = (error: { code?: string; message?: string } | null) =>
+        !!error && (error.code === 'PGRST205' || /relation.*canonical_transactions.*does not exist|table .*canonical_transactions.* does not exist/i.test(error.message || ''));
+
+      const { data: canonicalData, error: canonicalError } = await supabase
         .from('canonical_transactions')
         .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false });
 
-      let rows = data;
-      if (error) {
-        const missingTransactionsTable = error.code === 'PGRST205' || /relation.*canonical_transactions.*does not exist|table .*canonical_transactions.* does not exist/i.test(error.message || '');
-        if (missingTransactionsTable) {
-          const { data: legacyData, error: legacyError } = await supabase
-            .from('wallet_transactions')
-            .select('*')
-            .eq('user_id', userId)
-            .order('created_at', { ascending: false });
+      let rows: Record<string, unknown>[] = canonicalData || [];
 
-          if (legacyError) throw legacyError;
-          rows = legacyData;
-        } else {
-          throw error;
-        }
+      if (canonicalError && !missingTransactionsTable(canonicalError)) {
+        throw canonicalError;
       }
 
-      if (!rows || rows.length === 0) {
-        const { data: legacyData, error: legacyError } = await supabase
-          .from('wallet_transactions')
-          .select('*')
-          .eq('user_id', userId)
-          .order('created_at', { ascending: false });
+      const { data: legacyData, error: legacyError } = await supabase
+        .from('wallet_transactions')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
 
-        if (!legacyError && legacyData && legacyData.length > 0) {
-          rows = legacyData;
-        }
+      if (legacyError && !/relation.*wallet_transactions.*does not exist|table .*wallet_transactions.* does not exist/i.test(legacyError.message || '')) {
+        throw legacyError;
       }
+
+      rows = [...rows, ...(legacyData || [])];
+
+      const seen = new Set<string>();
+      const dedupedRows = rows.filter((tx) => {
+        const row = tx as Record<string, unknown>;
+        const signature = `${String(row.id ?? '')}-${String(row.reference ?? '')}-${String(row.created_at ?? row.createdAt ?? '')}-${String(row.type ?? row.transaction_type ?? '')}-${String(row.amount ?? '')}`;
+        if (!signature || seen.has(signature)) {
+          return false;
+        }
+        seen.add(signature);
+        return true;
+      });
 
       // Filter out withdrawal entries from the customer-facing history (we do not show payouts)
-      const formattedTransactions: Transaction[] = (rows || [])
+      const formattedTransactions: Transaction[] = dedupedRows
         .map((tx) => {
           const row = tx as Record<string, unknown>;
-          // Normalize fields from the new `canonical_transactions` table or the legacy `wallet_transactions`
-          const txnType = (row.transaction_type as string) || (row.type as string) || 'deposit';
-          const rawStatus = (row.status as string) || 'pending';
-          const mappedStatus = rawStatus === 'success' ? 'completed' : (rawStatus === 'failed' ? 'failed' : 'pending');
+          const rawType = String(row.transaction_type ?? row.type ?? row.kind ?? 'deposit').toLowerCase();
+          const normalizedType = rawType === 'refund' ? 'deposit' : rawType === 'withdrawal' || rawType === 'payout' ? 'withdrawal' : rawType;
+          const rawStatus = String(row.status ?? row.transaction_status ?? 'pending').toLowerCase();
+          const mappedStatus = rawStatus === 'success' || rawStatus === 'completed' || rawStatus === 'paid'
+            ? 'completed'
+            : rawStatus === 'failed'
+              ? 'failed'
+              : 'pending';
+
+          const amountValue = Number(row.amount ?? 0);
+
           return {
-            id: row.id as string,
-            type: txnType as 'withdrawal' | 'deposit' | 'purchase',
-            amount: Number(row.amount as number),
+            id: String(row.id ?? `${row.reference ?? 'txn'}-${row.created_at ?? row.createdAt ?? Date.now()}`),
+            type: normalizedType as 'withdrawal' | 'deposit' | 'purchase',
+            amount: Number.isFinite(amountValue) ? amountValue : 0,
             status: mappedStatus as 'completed' | 'pending' | 'failed',
-            description: (row.description as string) || (row.reference as string) || '',
-            reference: row.reference as string | undefined,
-            createdAt: (row.created_at as string) || (row.createdAt as string) || new Date().toISOString(),
+            description: String(row.description ?? row.reference ?? 'Transaction'),
+            reference: typeof row.reference === 'string' ? row.reference : undefined,
+            createdAt: String(row.created_at ?? row.createdAt ?? new Date().toISOString()),
             bankDetails: row.bank_details as Transaction['bankDetails'] || undefined,
             productDetails: row.product_details as Transaction['productDetails'] || undefined,
           };
@@ -102,6 +112,7 @@ export default function TransactionsPage() {
       setTransactions(formattedTransactions);
     } catch (error) {
       console.error('Failed to fetch transactions:', error);
+      setTransactions([]);
     } finally {
       setLoading(false);
     }
