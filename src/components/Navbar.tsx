@@ -64,18 +64,28 @@ export default function Navbar() {
           {(isSearchFocused || searchQuery.trim() !== '') && (
             <div className="absolute top-full left-0 right-0 mt-2 w-[180px] sm:w-64 md:w-80 bg-zinc-950/95 backdrop-blur-xl border border-zinc-800/80 rounded-xl shadow-2xl z-50 max-h-80 overflow-y-auto custom-scrollbar animate-fade-in">
               {(() => {
-                const query = searchQuery.toLowerCase().trim();
+                const query = searchQuery.trim().toLowerCase();
+                const normalizedQuery = query.replace(/[^a-z0-9]/g, '');
                 const isGamingQuery = query === 'gaming';
                 const filtered = masterInventory.filter((item) => {
-                  const matchesTitle = item.title.toLowerCase().includes(query);
-                  const matchesCategory = item.category.toLowerCase().includes(query);
-                  const matchesSpecs = item.specs.some((spec) => spec.toLowerCase().includes(query));
+                  const title = item.title.toLowerCase();
+                  const category = item.category.toLowerCase();
+                  const specs = item.specs.join(' ').toLowerCase();
+                  const priceDigits = item.price.replace(/[^0-9]/g, '');
+                  const matchesTitle = title.includes(query);
+                  const matchesCategory = category.includes(query);
+                  const matchesSpecs = specs.includes(query);
+                  const matchesPrice = priceDigits.includes(normalizedQuery) || item.price.toLowerCase().includes(query);
+                  const matchesSeller = item.seller.toLowerCase().includes(query);
+                  const matchesCondition = item.condition.toLowerCase().includes(query);
 
                   if (isGamingQuery && item.category === 'Laptops') {
                     return false;
                   }
 
-                  return matchesTitle || matchesCategory || matchesSpecs;
+                  if (!query) return true;
+
+                  return matchesTitle || matchesCategory || matchesSpecs || matchesPrice || matchesSeller || matchesCondition;
                 });
 
                 return filtered.length > 0 ? (

@@ -37,7 +37,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['256GB High-Speed Storage', 'Super Retina XDR'],
     description: 'Premium grade iPhone 13 fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
    {
     id: 'iphone-13-pro',
@@ -206,7 +206,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: ['/images/iphone-17pro.png.jpg.jpeg','/images/iphone-17pro1.png.jpg.jpeg'],
     specs: ['256GB High-Speed Storage', '48MP Triple Camera System', 'A19 Pro Chip', '12gb ram'],
     description: 'Next-gen iPhone 17 Pro luxury configuration available at David Gadgets Escrow.',
-    trending: false
+    trending: true
   },
   {
     id: 'iphone-17-pro-max',
@@ -324,7 +324,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['InfinityEdge Touch Display', 'Intel Core Ultra 9', 'RTX 4060 GPU'],
     description: 'Premium CNC Aluminum Chassis coupled with breathtaking OLED display.',
-    trending: true
+    trending: false
   },
   {
     id: 'dell-precision-5490',
@@ -433,7 +433,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [],
     specs: ['256GB Storage', 'Dynamic LTPO AMOLED 2X', 'Snapdragon 8 Elite', 'Ultra-Slim Bezel Profile'],
     description: 'Premium grade Galaxy S25 Ultra fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'samsung-s26-ultra',
@@ -475,7 +475,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['256GB Storage', 'Enhanced Armor Aluminum Frame', 'Snapdragon 8 Gen 3 for Galaxy', 'Integrated Galaxy AI Systems'],
     description: 'Premium grade Galaxy Z Fold 6 fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
 
 
@@ -504,7 +504,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['256GB Storage', '14.6-inch Dynamic AMOLED 2X', 'Snapdragon 8 Gen 2 for Galaxy', 'IP68 Water & Dust Resistance'],
     description: 'Premium grade Galaxy Tab S9 Ultra fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
 
   // --- GOOGLE PIXEL SERIES ---
@@ -557,7 +557,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['128GB Storage', 'Redesigned Flat Camera Bar', 'Google Tensor G4 Chip', 'Advanced Gemini Nano AI Integration'],
     description: 'Premium grade Google Pixel 9 Pro XL fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'google-pixel-10-pro-xl',
@@ -636,7 +636,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['256GB Storage', 'Ultra-Slim Bezels', 'Snapdragon 8 Elite Processor', 'Advanced Generative AI Toolkit'],
     description: 'Premium grade Galaxy S25 fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'google-pixel-6',
@@ -676,7 +676,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: ['/images/ipad.jpeg'],
     specs: ['64GB Storage', 'Liquid Retina Display', 'A14 Bionic Chip', 'USB-C Transition Port'],
     description: 'Modern all-screen baseline iPad fully inspected and supported by David Gadgets Escrow.',
-    trending: false
+    trending: true
   },
   {
     id: 'apple-ipad-pro-m4',
@@ -689,7 +689,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: ['/images/ipad 11gen.jpeg'],
     specs: ['256GB Storage', 'Tandem OLED ProMotion Display', 'Apple M4 Processor', 'Ultra-Thin Aluminum Build'],
     description: 'Pro grade studio computing tablet fully inspected and supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'apple-ipad-pro-m5',
@@ -702,7 +702,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['256GB Storage', '13-inch Ultra Tandem OLED', 'Apple M5 Next-Gen Chip', 'Optimized AI Neural Processing'],
     description: 'The pinnacle of high-end tablet hardware fully supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
 
   // --- GAMING CONSOLES ---
@@ -730,7 +730,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['1TB Expanded SSD Storage', 'Removable Disc Drive Config', 'Compact Space-Saving Frame', 'High-Speed USB-C Ports'],
     description: 'Streamlined current-gen console setup fully supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
 
   // --- MACBOOKS (2021 - 2026) ---
@@ -771,7 +771,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['24GB Minimum Base RAM', '512GB SSD Storage', 'Thunderbolt 5 Connectors', 'Space Black Premium Polish'],
     description: 'Extreme heavy developer workstation fully supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'macbook-air-m5-2026',
@@ -812,7 +812,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['Core i9 13th Gen Engine', '32GB RAM Architecture', '1TB High-Performance SSD', 'NVIDIA RTX 4060 Studio GPU'],
     description: 'High-end engineering and rendering powerhouse fully supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'dell-xps-14-2026',
@@ -865,7 +865,7 @@ export const masterInventory: ProductItem[] = [
     imageUrl: [''],
     specs: ['AMD Ryzen 9 Elite Platform', '32GB Dual-Channel System', 'NVIDIA RTX 4070 Graphics Card', '240Hz QHD Panel Setup'],
     description: 'Ultimate performance gaming workstation framework supported by David Gadgets Escrow.',
-    trending: true
+    trending: false
   },
   {
     id: 'hp 16-2026',
@@ -876,7 +876,7 @@ export const masterInventory: ProductItem[] = [
     category: 'Laptops',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
     imageUrl: [''],
-    specs: [''],
+    specs: ['experimental AMD Ryzen 9 Elite Platform', '32GB Dual-Channel System', 'NVIDIA RTX 4070 Graphics Card', '240Hz QHD Panel Setup'],
     description: 'Ultimate performance gaming workstation framework supported by David Gadgets Escrow.',
     trending: true
   }
