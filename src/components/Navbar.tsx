@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { useApp } from '@/context/AppContext';
 import AccountModal from './AccountModal';
 import { Shield, Wallet, History } from 'lucide-react';
@@ -16,6 +16,7 @@ export default function Navbar() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   const displayName = user?.name?.trim() || 'Customer';
   const welcomeText = user?.isConnected ? `Hi, ${displayName}` : 'Link Wallet';
@@ -26,6 +27,11 @@ export default function Navbar() {
       setIsSearchFocused(false);
       (event.target as HTMLInputElement).blur();
     }
+  };
+
+  const focusSearchInput = () => {
+    setIsSearchFocused(true);
+    window.setTimeout(() => searchInputRef.current?.focus(), 10);
   };
 
   return (
@@ -40,16 +46,18 @@ export default function Navbar() {
 
         <div className="relative flex items-center justify-center flex-1 min-w-0 mx-2">
           <div
-            className={`relative flex items-center rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 transition-all duration-300 ease-in-out ${
-              isSearchActive ? 'w-[180px] sm:w-64 md:w-80 z-50' : 'w-10 sm:w-32 md:w-40'
+            onClick={focusSearchInput}
+            className={`relative flex items-center rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 transition-all duration-300 ease-in-out touch-manipulation cursor-text ${
+              isSearchActive ? 'w-[180px] sm:w-64 md:w-80 z-50' : 'w-11 sm:w-32 md:w-40'
             }`}
           >
-            <span className="mr-2 text-zinc-400">
+            <span className="mr-2 shrink-0 text-zinc-400">
               <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </span>
             <input
+              ref={searchInputRef}
               type="text"
               placeholder="Search gadgets..."
               value={searchQuery}
@@ -57,7 +65,7 @@ export default function Navbar() {
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
               onKeyDown={handleSearchKeyDown}
-              className="w-full bg-transparent border-none outline-none text-xs sm:text-sm text-white placeholder:text-zinc-500"
+              className="w-full min-w-0 bg-transparent border-none outline-none text-xs sm:text-sm text-white placeholder:text-zinc-500"
             />
           </div>
 
@@ -92,7 +100,7 @@ export default function Navbar() {
                   filtered.slice(0, 8).map((product) => (
                     <Link
                       key={product.id}
-                      href={`/products/${product.id}`}
+                      href={`/products/${encodeURIComponent(product.id)}`}
                       onClick={() => setSearchQuery('')}
                       className="block w-full text-left px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-900/80 hover:text-white rounded-lg transition-all duration-200 active:scale-[0.99]"
                     >

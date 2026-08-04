@@ -10,14 +10,21 @@ import CheckoutModal from '@/components/CheckoutModal';
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const productId = params?.id as string;
+  const rawProductId = typeof params?.id === 'string' ? params.id : '';
+  const productId = decodeURIComponent(rawProductId);
+  const normalizeLookupKey = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
   const [isGalleryOpen, setGalleryOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   // Dynamic Lookup: Find matching item from the real 100-gadget master database
-  const item = masterInventory.find((prod) => prod.id === productId);
+  const item = masterInventory.find((prod) => {
+    const directMatch = prod.id === productId;
+    const normalizedMatch = normalizeLookupKey(prod.id) === normalizeLookupKey(productId);
+    const alternateSlugMatch = normalizeLookupKey(prod.id.replace(/\s+/g, '-')) === normalizeLookupKey(productId);
+    return directMatch || normalizedMatch || alternateSlugMatch;
+  });
   const galleryImages = useMemo(() => {
     if (!item?.imageUrl) return [];
     return item.imageUrl.filter((imgUrl) => imgUrl && imgUrl.trim() !== '');

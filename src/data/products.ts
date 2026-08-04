@@ -868,7 +868,7 @@ export const masterInventory: ProductItem[] = [
     trending: false
   },
   {
-    id: 'hp 16-2026',
+    id: 'hp-16-2026',
     title: 'HP Omen- 2026',
     price: '₦80',
     condition: 'Brand New',
