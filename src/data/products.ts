@@ -866,6 +866,19 @@ export const masterInventory: ProductItem[] = [
     specs: ['AMD Ryzen 9 Elite Platform', '32GB Dual-Channel System', 'NVIDIA RTX 4070 Graphics Card', '240Hz QHD Panel Setup'],
     description: 'Ultimate performance gaming workstation framework supported by David Gadgets Escrow.',
     trending: true
+  },
+  {
+    id: 'hp-omen-16-2026',
+    title: 'HP Omen Gaming 16 - 2026',
+    price: '₦80',
+    condition: 'Brand New',
+    seller: 'Premium Quality',
+    category: 'Laptops',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: [''],
+    specs: ['AMD Ryzen 9 Elite Platform', '32GB Dual-Channel System', 'NVIDIA RTX 4070 Graphics Card', '240Hz QHD Panel Setup'],
+    description: 'Ultimate performance gaming workstation framework supported by David Gadgets Escrow.',
+    trending: true
   }
 
 ];
