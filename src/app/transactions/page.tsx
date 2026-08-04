@@ -42,37 +42,56 @@ export default function TransactionsPage() {
 
     try {
       const supabase = createClient();
-      const missingTransactionsTable = (error: { code?: string; message?: string } | null) =>
-        !!error && (error.code === 'PGRST205' || /relation.*canonical_transactions.*does not exist|table .*canonical_transactions.* does not exist/i.test(error.message || ''));
+      const isMissingTableError = (error: { code?: string; message?: string } | null) =>
+        !!error && (
+          error.code === 'PGRST205' ||
+          /relation.*(transaction|canonical_transactions|wallet_transactions).*does not exist|table .*(transaction|canonical_transactions|wallet_transactions).* does not exist/i.test(error.message || '')
+        );
 
-      const { data: canonicalData, error: canonicalError } = await supabase
-        .from('canonical_transactions')
+      const { data: transactionData, error: transactionError } = await supabase
+        .from('transaction')
         .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false });
 
-      let rows: Record<string, unknown>[] = canonicalData || [];
+      let rows: Record<string, unknown>[] = transactionData || [];
 
-      if (canonicalError && !missingTransactionsTable(canonicalError)) {
-        throw canonicalError;
+      if (transactionError && !isMissingTableError(transactionError)) {
+        throw transactionError;
       }
 
-      const { data: legacyData, error: legacyError } = await supabase
-        .from('wallet_transactions')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
+      if (!rows.length || transactionError) {
+        const { data: canonicalData, error: canonicalError } = await supabase
+          .from('canonical_transactions')
+          .select('*')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false });
 
-      if (legacyError && !/relation.*wallet_transactions.*does not exist|table .*wallet_transactions.* does not exist/i.test(legacyError.message || '')) {
-        throw legacyError;
+        if (canonicalError && !isMissingTableError(canonicalError)) {
+          throw canonicalError;
+        }
+
+        rows = [...rows, ...(canonicalData || [])];
       }
 
-      rows = [...rows, ...(legacyData || [])];
+      if (!rows.length) {
+        const { data: legacyData, error: legacyError } = await supabase
+          .from('wallet_transactions')
+          .select('*')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false });
+
+        if (legacyError && !isMissingTableError(legacyError)) {
+          throw legacyError;
+        }
+
+        rows = [...rows, ...(legacyData || [])];
+      }
 
       const seen = new Set<string>();
       const dedupedRows = rows.filter((tx) => {
         const row = tx as Record<string, unknown>;
-        const signature = `${String(row.id ?? '')}-${String(row.reference ?? '')}-${String(row.created_at ?? row.createdAt ?? '')}-${String(row.type ?? row.transaction_type ?? '')}-${String(row.amount ?? '')}`;
+        const signature = `${String(row.uuid ?? row.id ?? '')}-${String(row.reference ?? '')}-${String(row.created_at ?? row.createdAt ?? '')}-${String(row.transaction_type ?? row.type ?? '')}-${String(row.amount ?? '')}`;
         if (!signature || seen.has(signature)) {
           return false;
         }
@@ -80,7 +99,6 @@ export default function TransactionsPage() {
         return true;
       });
 
-      // Filter out withdrawal entries from the customer-facing history (we do not show payouts)
       const formattedTransactions: Transaction[] = dedupedRows
         .map((tx) => {
           const row = tx as Record<string, unknown>;
@@ -96,7 +114,7 @@ export default function TransactionsPage() {
           const amountValue = Number(row.amount ?? 0);
 
           return {
-            id: String(row.id ?? `${row.reference ?? 'txn'}-${row.created_at ?? row.createdAt ?? Date.now()}`),
+            id: String(row.uuid ?? row.id ?? `${row.reference ?? 'txn'}-${row.created_at ?? row.createdAt ?? Date.now()}`),
             type: normalizedType as 'withdrawal' | 'deposit' | 'purchase',
             amount: Number.isFinite(amountValue) ? amountValue : 0,
             status: mappedStatus as 'completed' | 'pending' | 'failed',

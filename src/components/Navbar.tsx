@@ -46,16 +46,20 @@ export default function Navbar() {
 
         <div className="relative flex items-center justify-center flex-1 min-w-0 mx-2">
           <div
-            onClick={focusSearchInput}
-            className={`relative flex items-center rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 transition-all duration-300 ease-in-out touch-manipulation cursor-text ${
+            className={`relative flex items-center rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 transition-all duration-300 ease-in-out touch-manipulation ${
               isSearchActive ? 'w-[180px] sm:w-64 md:w-80 z-50' : 'w-11 sm:w-32 md:w-40'
             }`}
           >
-            <span className="mr-2 shrink-0 text-zinc-400">
+            <button
+              type="button"
+              aria-label="Open search"
+              onClick={focusSearchInput}
+              className="mr-2 shrink-0 text-zinc-400 hover:text-white transition-colors"
+            >
               <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-            </span>
+            </button>
             <input
               ref={searchInputRef}
               type="text"

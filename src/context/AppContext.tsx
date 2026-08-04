@@ -293,6 +293,66 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return fetchPromise;
   }, [getStoredWalletBalance, setStoredWalletBalance, supabase, fetchUserOrders, user]);
 
+  const writeTransactionHistory = useCallback(async ({
+    userId,
+    amount,
+    type,
+    status,
+    reference,
+    description,
+    productDetails,
+    bankDetails,
+    createdAt,
+  }: {
+    userId: string;
+    amount: number;
+    type: 'deposit' | 'purchase' | 'refund' | 'withdrawal';
+    status: 'pending' | 'completed' | 'failed' | 'success';
+    reference: string;
+    description: string;
+    productDetails?: { productTitle?: string; orderNumber?: string };
+    bankDetails?: { accountNumber?: string; accountName?: string; bankCode?: string };
+    createdAt?: string;
+  }) => {
+    const normalizedStatus = status === 'success' ? 'completed' : status;
+    const payload = {
+      user_id: userId,
+      amount,
+      transaction_type: type,
+      type,
+      reference,
+      description,
+      status: normalizedStatus,
+      created_at: createdAt ?? new Date().toISOString(),
+      ...(productDetails ? { product_details: productDetails } : {}),
+      ...(bankDetails ? { bank_details: bankDetails } : {}),
+    };
+
+    try {
+      const { error } = await supabase.from('transaction').insert([payload]);
+      if (error) throw error;
+      return;
+    } catch (transactionTableError) {
+      console.warn('transaction table not available, falling back to wallet_transactions:', transactionTableError);
+    }
+
+    try {
+      await supabase.from('wallet_transactions').insert([{
+        user_id: userId,
+        amount,
+        type,
+        status: normalizedStatus === 'completed' ? 'completed' : normalizedStatus,
+        reference,
+        description,
+        created_at: payload.created_at,
+        ...(productDetails ? { product_details: productDetails } : {}),
+        ...(bankDetails ? { bank_details: bankDetails } : {}),
+      }]);
+    } catch (walletError) {
+      console.error('Failed to store transaction history in wallet_transactions:', walletError);
+    }
+  }, [supabase]);
+
   const creditWalletBalance = useCallback(async (userId: string, amount: number) => {
     const safeAmount = Number(amount);
     if (!Number.isFinite(safeAmount) || safeAmount <= 0) {
@@ -756,31 +816,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
  
       // Log deposit transaction history so it appears in the transaction page
       try {
-        await supabase.from('wallet_transactions').insert([{
-          user_id: authUser.id,
+        await writeTransactionHistory({
+          userId: authUser.id,
           amount,
           type: 'deposit',
-          status: 'completed',
+          status: 'success',
           reference,
           description: 'Paystack deposit',
-          created_at: new Date().toISOString(),
-        }]);
-
-        // Also write a record into the new canonical transactions table (if present)
-        try {
-          await supabase.from('canonical_transactions').insert([{ 
-            user_id: authUser.id,
-            amount: amount,
-            type: 'deposit',
-            reference,
-            description: 'Paystack deposit',
-            status: 'success',
-            created_at: new Date().toISOString(),
-          }]);
-        } catch (tErr) {
-          // If table doesn't exist or unique constraint hits, log but do not fail the flow
-          console.error('Could not insert into canonical_transactions table (deposit):', tErr);
-        }
+          createdAt: new Date().toISOString(),
+        });
       } catch (transactionError) {
         console.error('Failed to store deposit transaction history:', transactionError);
       }
@@ -967,36 +1011,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
         throw new Error(msg);
       }
   
-      // 4a. Log the purchase into wallet transaction history
+      // 4a. Log the purchase into the main transaction history table
       try {
-        await supabase.from('wallet_transactions').insert([{
-          user_id: session.user.id,
+        await writeTransactionHistory({
+          userId: session.user.id,
           amount: price,
           type: 'purchase',
-          status: 'completed',
+          status: 'success',
           reference: orderNumber,
           description: `Purchase of ${productTitle}`,
-          product_details: {
+          productDetails: {
             productTitle,
             orderNumber,
           },
-          created_at: new Date().toISOString(),
-        }]);
-
-        // Also store in canonical transactions table if available
-        try {
-          await supabase.from('canonical_transactions').insert([{
-            user_id: session.user.id,
-            amount: price,
-            type: 'purchase',
-            reference: orderNumber,
-            description: `Purchase of ${productTitle}`,
-            status: 'success',
-            created_at: new Date().toISOString(),
-          }]);
-        } catch (tErr) {
-          console.error('Could not insert into canonical_transactions table (purchase):', tErr);
-        }
+          createdAt: new Date().toISOString(),
+        });
       } catch (transactionError) {
         console.error('Failed to save purchase transaction record:', transactionError);
       }
@@ -1074,33 +1103,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
  
       // 3. Log the refund transaction
       try {
-        await supabase.from('wallet_transactions').insert([{
-          user_id: session.user.id,
+        await writeTransactionHistory({
+          userId: session.user.id,
           amount: orderToCancel.price,
-          type: 'deposit',
-          status: 'completed',
+          type: 'refund',
+          status: 'success',
           reference: `REFUND-${orderId}`,
           description: `Refund for cancelled order ${orderId}`,
-          product_details: {
+          productDetails: {
             orderNumber: orderId,
             productTitle: orderToCancel.productTitle,
           },
-          created_at: new Date().toISOString(),
-        }]);
-
-        try {
-          await supabase.from('canonical_transactions').insert([{
-            user_id: session.user.id,
-            amount: orderToCancel.price,
-            type: 'refund',
-            reference: `REFUND-${orderId}`,
-            description: `Refund for cancelled order ${orderId}`,
-            status: 'success',
-            created_at: new Date().toISOString(),
-          }]);
-        } catch (tErr) {
-          console.error('Could not insert into canonical_transactions table (refund):', tErr);
-        }
+          createdAt: new Date().toISOString(),
+        });
       } catch (transactionError) {
         console.error('Failed to save refund transaction record:', transactionError);
       }
@@ -1204,36 +1219,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
         if (!existingTx) {
           try {
-            await supabase.from('wallet_transactions').insert([{
-              user_id: session.user.id,
+            await writeTransactionHistory({
+              userId: session.user.id,
               amount: amount,
               type: 'purchase',
-              status: 'completed',
+              status: 'success',
               reference: orderId,
               description: `Purchase completed for ${productTitle}`,
-              product_details: {
+              productDetails: {
                 productTitle,
                 orderNumber: orderId,
               },
-              created_at: new Date().toISOString(),
-            }]);
-
-              try {
-                await supabase.from('canonical_transactions').insert([{
-                  user_id: session.user.id,
-                  amount: amount,
-                  type: 'purchase',
-                  reference: orderId,
-                  description: `Purchase completed for ${productTitle}`,
-                  status: 'success',
-                  created_at: new Date().toISOString(),
-                }]);
-              } catch (tErr) {
-                console.error('Could not insert into canonical_transactions table (confirmDelivery purchase):', tErr);
-              }
-            } catch (txErr) {
-              console.error('Failed to insert purchase transaction after confirmation:', txErr);
-            }
+              createdAt: new Date().toISOString(),
+            });
+          } catch (txErr) {
+            console.error('Failed to insert purchase transaction after confirmation:', txErr);
+          }
         }
       } catch (txCheckErr) {
         console.error('Error ensuring purchase transaction exists after confirmation:', txCheckErr);
