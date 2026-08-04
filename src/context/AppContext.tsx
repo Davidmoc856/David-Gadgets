@@ -329,11 +329,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
 
     try {
-      const { error } = await supabase.from('transaction').insert([payload]);
+      const { error } = await supabase.from('transactions').insert([payload]);
       if (error) throw error;
       return;
     } catch (transactionTableError) {
-      console.warn('transaction table not available, falling back to wallet_transactions:', transactionTableError);
+      console.warn('transactions table not available, falling back to wallet_transactions:', transactionTableError);
     }
 
     try {

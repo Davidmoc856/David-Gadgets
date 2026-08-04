@@ -49,7 +49,7 @@ export default function TransactionsPage() {
         );
 
       const { data: transactionData, error: transactionError } = await supabase
-        .from('transaction')
+        .from('transactions')
         .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false });
