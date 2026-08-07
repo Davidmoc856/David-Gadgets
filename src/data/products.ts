@@ -412,7 +412,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'samsung-s24-ultra',
     title: 'Samsung Galaxy S24 Ultra (256GB) - 2024',
-    price: '₦1,250,000',
+    price: '₦1,000,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -425,7 +425,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'samsung-s25-ultra',
     title: 'Samsung Galaxy S25 Ultra (256GB) - 2025',
-    price: '₦1,550,000',
+    price: '₦1,300,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -438,7 +438,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'samsung-s26-ultra',
     title: 'Samsung Galaxy S26 Ultra (256GB) - 2026',
-    price: '₦1,750,000',
+    price: '₦1,700,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -516,7 +516,7 @@ export const masterInventory: ProductItem[] = [
     seller: 'Premium Quality',
     category: 'Smartphones',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
-    imageUrl: [''],
+    imageUrl: ['/images/google pixel 10a.jpeg'],
     specs: ['128GB Storage', 'Google Tensor G4 Chip', 'Titanium Frame Structure','6.3 inches Actua pOLED ,120Hz refresh rate, HDR support, 3000 nits peak brightness'],
     description: 'Premium grade Google Pixel a10 fully inspected and supported by David Gadgets Escrow.',
     trending: false
@@ -567,7 +567,7 @@ export const masterInventory: ProductItem[] = [
     seller: 'Premium Quality',
     category: 'Smartphones',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
-    imageUrl: ['/images/google pixel10a.jpeg'],
+    imageUrl: [''],
     specs: ['256GB Storage', '6.8-inch Super Actua OLED 1-120Hz', 'Google Tensor G5 (TSMC Built)', '100x Pro Res Zoom Lens'],
     description: 'Premium grade Google Pixel 10 Pro XL fully inspected and supported by David Gadgets Escrow.',
     trending: true
@@ -653,15 +653,15 @@ export const masterInventory: ProductItem[] = [
   },
   // --- IPADS (2021 - 2026) ---
   {
-    id: 'apple-ipad-9th-gen',
-    title: 'Apple iPad 10.2" (9th Gen/64GB) - 2021',
-    price: '₦240,000',
+    id: 'apple-ipad-11th-gen',
+    title: 'Apple iPad A16" (11th Gen/256GB) - 2023',
+    price: '₦910,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Tablets',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
     imageUrl: [''],
-    specs: ['64GB Storage', '10.2-inch Retina Display', 'A13 Bionic Chip', 'Lightning Port Architecture'],
+    specs: ['256GB Storage', '10.2-inch Retina Display'],
     description: 'Reliable classic iPad entry fully inspected and supported by David Gadgets Escrow.',
     trending: false
   },
@@ -693,14 +693,14 @@ export const masterInventory: ProductItem[] = [
   },
   {
     id: 'apple-ipad-pro-m5',
-    title: 'Apple iPad Pro 13" (M5/256GB) - 2025',
-    price: '₦1,450,000',
+    title: 'Apple iPad Pro 11" (M5/1TB) - 2025',
+    price: '₦1,950,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Tablets',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
     imageUrl: [''],
-    specs: ['256GB Storage', '13-inch Ultra Tandem OLED', 'Apple M5 Next-Gen Chip', 'Optimized AI Neural Processing'],
+    specs: ['1TB Storage', '11-inch Ultra Tandem OLED', 'Apple M5 Next-Gen Chip', 'Optimized AI Neural Processing'],
     description: 'The pinnacle of high-end tablet hardware fully supported by David Gadgets Escrow.',
     trending: false
   },
@@ -735,16 +735,29 @@ export const masterInventory: ProductItem[] = [
 
   // --- MACBOOKS (2021 - 2026) ---
   {
-    id: 'macbook-pro-m1-2021',
-    title: 'Apple MacBook Pro 14" (M1 Pro) - 2021',
-    price: '₦950,000',
-    condition: 'Brand New',
+    id: 'macbook-pro-m1-2020',
+    title: 'Apple MacBook Pro 13" (M1) - 2020',
+    price: '₦790,000',
+    condition: 'UK used',
     seller: 'Premium Quality',
     category: 'Laptops',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
     imageUrl: ['/images/macbook-2020.jpeg'],
-    specs: ['16GB Unified RAM', '512GB SSD Storage', 'Liquid Retina XDR 120Hz', 'Pro-Level Creative Ports'],
+    specs: ['8GB Unified RAM', '256GB SSD Storage', 'Liquid Retina XDR 120Hz', 'Pro-Level Creative Ports'],
     description: 'Legendary developer Workhorse architecture fully supported by David Gadgets Escrow.',
+    trending: false
+  },
+  {
+    id: 'macbook-air-m4-2024',
+    title: 'Apple MacBook Air 13" (M4) - 2024',
+    price: '₦1,490,000',
+    condition: 'Brand New',
+    seller: 'Premium Quality',
+    category: 'Laptops',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: [''],
+    specs: ['24GB Unified RAM', '512GB SSD Storage', 'Thunderbolt 5 connectors'],
+    description: 'Legendary workhorse fully supported by David Gadgets Escrow.',
     trending: false
   },
   {
@@ -785,6 +798,19 @@ export const masterInventory: ProductItem[] = [
     specs: ['16GB Unified RAM', '512GB Base Storage Architecture', 'Apple M5 Advanced Core', 'Wi-Fi 7 Connectivity Grid'],
     description: 'Brand new state-of-the-art consumer portable laptop supported by David Gadgets Escrow.',
     trending: true
+  },
+  {
+    id: 'macbook-air-m4-2025',
+    title: 'Apple MacBook Air 13" (M4) - 2025',
+    price: '₦1,180,000',
+    condition: 'Brand New',
+    seller: 'Premium Quality',
+    category: 'Laptops',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: [''],
+    specs: ['16GB Unified RAM', '512GB Base Storage Architecture', 'Apple M4 Core', 'Wi-Fi 6 Connectivity Grid'],
+    description: 'Brand new consumer portable laptop supported by David Gadgets Escrow.',
+    trending: false
   },
 
   // --- DELL ENTERPRISE WORKSTATIONS ---
@@ -867,19 +893,6 @@ export const masterInventory: ProductItem[] = [
     description: 'Ultimate performance gaming workstation framework supported by David Gadgets Escrow.',
     trending: false
   },
-  {
-    id: 'hp-16-2026',
-    title: 'HP Omen- 2026',
-    price: '₦80',
-    condition: 'Brand New',
-    seller: 'Premium Quality',
-    category: 'Laptops',
-    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
-    imageUrl: [''],
-    specs: ['experimental AMD Ryzen 9 Elite Platform', '32GB Dual-Channel System', 'NVIDIA RTX 4070 Graphics Card', '240Hz QHD Panel Setup'],
-    description: 'Ultimate performance gaming workstation framework supported by David Gadgets Escrow.',
-    trending: true
-  }
 
 ];
 
