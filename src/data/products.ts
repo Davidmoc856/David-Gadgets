@@ -29,7 +29,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-13-256gb',
     title: 'iPhone 13 (256GB) - 2021',
-    price: '₦430,000',
+    price: '₦400,000',
     condition: 'UK used',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -42,7 +42,7 @@ export const masterInventory: ProductItem[] = [
    {
     id: 'iphone-13-pro',
     title: 'iPhone 13 pro (256GB) - 2021',
-    price: '₦600,000',
+    price: '₦560,000',
     condition: 'UK used',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -55,7 +55,7 @@ export const masterInventory: ProductItem[] = [
    {
     id: 'iphone-13-pro-max',
     title: 'iPhone 13 pro max (256GB) - 2021',
-    price: '₦700,000',
+    price: '₦640,000',
     condition: 'UK used',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -91,6 +91,19 @@ export const masterInventory: ProductItem[] = [
     description: 'Premium grade iPhone 14 Pro fully inspected and supported by David Gadgets Escrow.',
     trending: false
   },
+   {
+    id: 'iphone-14-pro',
+    title: 'iPhone 14 Pro (256GB) - 2022',
+    price: '₦680,000',
+    condition: 'UK used',
+    seller: 'Premium Quality',
+    category: 'Smartphones',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: ['/images/iphone-14pro.png.jpg.jpeg','/images/iphone-14pro1.png.jpg.jpeg','/images/iphone-14pro2.png.jpg.jpeg','/images/iphone-14pro3.png.jpg.jpeg','/images/iphone-14pro4.png.jpg.jpeg'],
+    specs: ['256GB High-Speed Storage', 'Super Retina XDR', 'ProMotion 120Hz', 'A16 Bionic',],
+    description: 'Premium grade iPhone 14 Pro fully inspected and supported by David Gadgets Escrow.',
+    trending: false
+  },
   {
     id: 'iphone-14-pro-max',
     title: 'iPhone 14 Pro Max (256GB) - 2022',
@@ -105,9 +118,22 @@ export const masterInventory: ProductItem[] = [
     trending: true
   },
   {
+    id: 'iphone-14-pro-max',
+    title: 'iPhone 14 Pro Max (256GB) - 2022',
+    price: '₦760,000',
+    condition: 'UK used',
+    seller: 'Premium Quality',
+    category: 'Smartphones',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: ['/images/14 pro max 256.jpeg'],
+    specs: ['256GB High-Speed Storage', 'Super Retina XDR', 'ProMotion 120Hz'],
+    description: 'Premium grade iPhone 14 Pro Max fully inspected and supported by David Gadgets Escrow.',
+    trending: true
+  },
+  {
     id: 'iphone-15',
     title: 'iPhone 15 (256GB) - 2023',
-    price: '₦850,000',
+    price: '₦730,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -120,7 +146,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-15-pro',
     title: 'iPhone 15 Pro(256GB) - 2023',
-    price: '₦1,000,000',
+    price: '₦950,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -133,7 +159,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-15-pro-max',
     title: 'iPhone 15 Pro Max (256GB) - 2024',
-    price: '₦1,350,000',
+    price: '₦1,000,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -146,7 +172,7 @@ export const masterInventory: ProductItem[] = [
      {
     id: 'iphone-16',
     title: 'iPhone 16 (256GB) - 2024',
-    price: '₦950,000',
+    price: '₦900,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -159,7 +185,7 @@ export const masterInventory: ProductItem[] = [
    {
     id: 'iphone-16-pro',
     title: 'iPhone 16 Pro (256GB) - 2024',
-    price: '₦1,350,000',
+    price: '₦1,050,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -172,7 +198,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-16-pro-max',
     title: 'iPhone 16 Pro Max (256GB) - 2024',
-    price: '₦1,750,000',
+    price: '₦1,200,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -185,7 +211,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-17',
     title: 'iPhone 17 (256GB) - 2025',
-    price: '₦1,200,000',
+    price: '₦1,100,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -198,7 +224,7 @@ export const masterInventory: ProductItem[] = [
    {
     id: 'iphone-17-pro',
     title: 'iPhone 17 Pro (256GB) - 2025',
-    price: '₦2,000,000',
+    price: '₦1,700,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -211,7 +237,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-17-pro-max',
     title: 'iPhone 17 Pro Max (256GB) - 2026',
-    price: '₦2,200,000',
+    price: '₦1,900,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -222,22 +248,22 @@ export const masterInventory: ProductItem[] = [
     trending: true
   },
   {
-    id: 'iphone-17-air',
-    title: 'iPhone 17 Air (256GB) - 2026',
-    price: '₦1,300,000',
+    id: 'iphone-air',
+    title: 'iPhone Air (256GB) - 2026',
+    price: '₦1,200,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
     imageUrl: ['/images/17 air.jpeg'],
     specs: ['256GB High-Speed Storage', '48MP Camera System', 'A19 Pro Chip', '12gb ram'],
-    description: 'Next-gen iPhone 17 Air luxury configuration available at David Gadgets Escrow.',
+    description: 'Next-gen iPhone Air luxury configuration available at David Gadgets Escrow.',
     trending: true
   },
   {
     id: 'iphone-17e',
     title: 'iPhone 17e (256GB) - 2026',
-    price: '₦1,000,000',
+    price: '₦960,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -247,7 +273,46 @@ export const masterInventory: ProductItem[] = [
     description: 'Next-gen iPhone 17e luxury configuration available at David Gadgets Escrow.',
     trending: true
   },
-
+  
+   {
+    id: 'iphone-18-pro',
+    title: 'iPhone 18 Pro (256GB) - 2026',
+    price: '₦1,900,000',
+    condition: 'Brand New',
+    seller: 'Premium Quality',
+    category: 'Smartphones',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: ['/images/iphone-17pro.png.jpg.jpeg','/images/iphone-17pro1.png.jpg.jpeg'],
+    specs: ['256GB High-Speed Storage', '48MP Triple Camera System', 'A20 Pro Chip', '12gb ram'],
+    description: 'Next-gen iPhone 18 Pro luxury configuration available at David Gadgets Escrow.',
+    trending: true
+  },
+  {
+    id: 'iphone-18-pro-max',
+    title: 'iPhone 18 Pro Max (256GB) - 2026',
+    price: '₦2,300,000',
+    condition: 'Brand New',
+    seller: 'Premium Quality',
+    category: 'Smartphones',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: ['/images/iphone-17pro-max.png.jpg.jpeg','/images/iphone-17pro-max1.png.jpg.jpeg'],
+    specs: ['256GB High-Speed Storage', '48MP Triple Camera System', 'A20 Pro Chip', '12gb ram'],
+    description: 'Next-gen iPhone 18 Pro Max luxury configuration available at David Gadgets Escrow.',
+    trending: true
+  },
+  {
+    id: 'iphone-Duo',
+    title: 'iPhone Duo (256GB) - 2026',
+    price: '₦2,800,000',
+    condition: 'Brand New',
+    seller: 'Premium Quality',
+    category: 'Smartphones',
+    imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
+    imageUrl: [''],
+    specs: ['256GB High-Speed Storage', 'A20 Pro Chip', '12gb ram'],
+    description: 'Next-gen iPhone Duo luxury configuration available at David Gadgets Escrow.',
+    trending: true
+  },
   {
     id: 'samsung-z-fold-5-512gb',
     title: 'Samsung Galaxy Z Fold 5 (512GB)',
