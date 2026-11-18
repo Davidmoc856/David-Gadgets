@@ -250,7 +250,7 @@ export const masterInventory: ProductItem[] = [
   {
     id: 'iphone-air',
     title: 'iPhone Air (256GB) - 2026',
-    price: '₦1,200,000',
+    price: '₦1,300,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
@@ -277,12 +277,12 @@ export const masterInventory: ProductItem[] = [
    {
     id: 'iphone-18-pro',
     title: 'iPhone 18 Pro (256GB) - 2026',
-    price: '₦1,900,000',
+    price: '₦1,980,000',
     condition: 'Brand New',
     seller: 'Premium Quality',
     category: 'Smartphones',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
-    imageUrl: ['/images/iphone-17pro.png.jpg.jpeg','/images/iphone-17pro1.png.jpg.jpeg'],
+    imageUrl: [''],
     specs: ['256GB High-Speed Storage', '48MP Triple Camera System', 'A20 Pro Chip', '12gb ram'],
     description: 'Next-gen iPhone 18 Pro luxury configuration available at David Gadgets Escrow.',
     trending: true
@@ -295,7 +295,7 @@ export const masterInventory: ProductItem[] = [
     seller: 'Premium Quality',
     category: 'Smartphones',
     imageBg: 'bg-gradient-to-br from-zinc-900 to-neutral-900',
-    imageUrl: ['/images/iphone-17pro-max.png.jpg.jpeg','/images/iphone-17pro-max1.png.jpg.jpeg'],
+    imageUrl: [''],
     specs: ['256GB High-Speed Storage', '48MP Triple Camera System', 'A20 Pro Chip', '12gb ram'],
     description: 'Next-gen iPhone 18 Pro Max luxury configuration available at David Gadgets Escrow.',
     trending: true
